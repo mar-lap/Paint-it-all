@@ -1,0 +1,88 @@
+#drawPencil {
+    -fx-background-color: transparent;
+    -fx-background-image: url("/Paint/resources/icons/pencilIcon.png");
+    -fx-background-size: 25px 25px;
+    -fx-background-position: center;
+}
+
+#fillCanvas {
+    -fx-background-color: transparent;
+    -fx-background-image: url("/Paint/resources/icons/fillCanvasIcon.png");
+    -fx-background-size: 25px 25px;
+    -fx-background-position: center;
+}
+
+#eraser {
+    -fx-background-color: transparent;
+    -fx-background-image: url("/Paint/resources/icons/eraserIcon.png");
+    -fx-background-size: 25px 25px;
+    -fx-background-position: center;
+}
+
+#insertText {
+    -fx-background-color: transparent;
+    -fx-background-image: url("/Paint/resources/icons/insertTextIcon.png");
+    -fx-background-size: 23px 23px;
+    -fx-background-position: center;
+    -fx-smooth: true;
+}
+
+#onZoom {
+    -fx-background-color: transparent;
+    -fx-background-image: url("/Paint/resources/icons/magnifierIcon.png");
+    -fx-background-size: 25px 25px;
+    -fx-background-position: center;
+}
+
+#getBack {
+    -fx-background-color: transparent;
+    -fx-background-image: url("/Paint/resources/icons/backIcon.png");
+    -fx-background-size: 23px 23px;
+    -fx-background-position: center;
+}
+
+#getForward {
+    -fx-background-color: transparent;
+    -fx-background-image: url("/Paint/resources/icons/forwardIcon.png");
+    -fx-background-size: 23px 23px;
+    -fx-background-position: center;
+}
+
+.button {
+    -fx-cell-size: 30px 30px;
+    -fx-font-family: Arial;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-repeat: no-repeat;
+}
+
+.button:focused{
+    -fx-border-radius: 3.0;
+    -fx-border-color: white;
+}
+
+.check-box {
+    -fx-background-color: transparent;
+}
+
+.color-picker {
+    -fx-color-label-visible: false;
+    -fx-cell-size: 40 40;
+    -fx-background-color: transparent;
+    -fx-background-radius: 2 2 2 2;
+    -fx-background-size: 40 40;
+}
+
+.color-picker:hover {
+    -fx-background-color: #3095D4;
+}
+
+.menu {
+    -fx-background-radius: 2 2 2 2;
+    -fx-font-size: 14;
+}
+
+.menu:hover {
+    -fx-background-color: #3095D4;
+}
+

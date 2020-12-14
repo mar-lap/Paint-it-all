@@ -1,0 +1,81 @@
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.control.Button?>
+
+
+<BorderPane fx:id="borderPane" fx:controller="Paint.PaintController"
+            xmlns:fx="http://javafx.com/fxml"
+            prefHeight="600" prefWidth="900" stylesheets="/Paint/style/Style.css">
+    <top>
+        <VBox style="-fx-background-color: #35B9F7">
+            <HBox spacing="10" stylesheets="/Paint/style/Style.css">
+                <MenuBar style="-fx-background-color: transparent">
+                    <Menu text="File" style="-fx-background-insets: 0 0;">
+                        <MenuItem text = "Create new" style = "-fx-pref-width: 100"
+                                  onAction="#onCreateNew"/>
+                        <MenuItem fx:id="save" text = "Save" style = "-fx-pref-width: 100" onAction="#onSave"/>
+                        <MenuItem text = "Printing" style = "-fx-pref-width: 100" onAction="#onPrint"/>
+                        <MenuItem fx:id="insert" text = "Insert image" style = "-fx-pref-width: 100" onAction="#onInsertImage"/>
+                        <MenuItem fx:id="exit" text = "Exit" style = "-fx-pref-width: 100" onAction="#onExit"/>
+                    </Menu>
+                </MenuBar>
+                <Button fx:id="getBack" prefWidth="25" prefHeight="25"
+                        onAction="#onPressBack"/>
+                <Button fx:id="getForward" prefWidth="25" prefHeight="25"
+                        onAction="#onPressForward"/>
+            </HBox>
+
+            <ToolBar prefHeight="50" style="-fx-background-color: transparent">
+                <HBox alignment="CENTER" spacing = "20">
+                    <TextField fx:id = "brushSize" text="10" prefWidth="50"/>
+                    <FlowPane fx:id="buttonFlowPane" orientation="HORIZONTAL" prefHeight="30"
+                              prefWidth="150" hgap="10" vgap="5" stylesheets="/Paint/style/Style.css">
+                        <Button fx:id = "drawPencil" onAction="#onDraw"/>
+                        <Button fx:id = "fillCanvas" onAction="#onFill"/>
+                        <Button fx:id = "eraser" onAction="#onErase"/>
+                        <Button fx:id = "insertText" onAction="#onInsertText"/>
+                        <Button fx:id = "onZoom" onAction="#onZoom"/>
+                    </FlowPane>
+                    <MenuBar style="-fx-background-color: transparent;">
+                        <Menu text="Figures">
+                            <MenuItem fx:id="Line" text="Line" onAction="#onLine"/>
+                            <MenuItem fx:id="Circle" text="Circle" onAction="#onCircle"/>
+                            <MenuItem fx:id="Ellipse" text="Oval" onAction="#onOval"/>
+                            <MenuItem fx:id="Rectangle" text="Rectangle" onAction="#onRect"/>
+                            <MenuItem fx:id="FillRect" text="Fill Rectangle" onAction="#onFillRect"/>
+                            <MenuItem fx:id="DrawFigure" text="Draw a figure"/>
+                        </Menu>
+                    </MenuBar >
+                    <ColorPicker fx:id = "colorPicker"/>
+                    <CheckBox fx:id="grid" text="Grid" onAction="#createGrid" stylesheets="/Paint/style/Style.css"/>
+                    <MenuBar style="-fx-background-color: transparent;">
+                        <Menu fx:id="scheme" text="Scheme">
+                            <MenuItem fx:id="AddNew" text="Add new" onAction="#onAddScheme"/>
+                        </Menu>
+                        <Menu fx:id="colorScheme" text="Color scheme">
+                            <MenuItem fx:id="AddNewColor" text="Add new" onAction="#onAddColorScheme"/>
+                        </Menu>
+                    </MenuBar >
+                </HBox>
+            </ToolBar>
+        </VBox>
+    </top>
+
+    <center>
+        <ScrollPane fx:id="scrollPane" hbarPolicy="AS_NEEDED" vbarPolicy="AS_NEEDED" style="-fx-background-color: lightgray">
+            <Canvas fx:id="canvas" width = "800" height="700"/>
+        </ScrollPane>
+    </center>
+</BorderPane>
