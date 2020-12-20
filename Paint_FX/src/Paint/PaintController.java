@@ -30,6 +30,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -242,7 +243,6 @@ public class PaintController {
         onChooseColorScheme();
         AddNewColor.setGraphic(new ImageView(new Image("/Paint/resources/icons/addIcon.png", 30, 30, false,true)));
         colorScheme.getItems().addAll(ColorSchemeItems);
-
     }
 
     public void showScheme(Image image) {
@@ -273,7 +273,7 @@ public class PaintController {
     public void onChooseColorScheme() {
         int i;
 
-        for (i = 0; i < SchemeItems.size(); i++) {
+        for (i = 0; i < ColorSchemeItems.size(); i++) {
             int finalI = i;
             ColorSchemeItems.get(i).setOnAction(e -> {
                 showScheme(ColorSchemes.get(finalI));
@@ -342,6 +342,7 @@ public class PaintController {
 
     public void onGetBack(int ind) {
         GraphicsContext g = canvas.getGraphicsContext2D();
+        g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         g.drawImage(DrawOperations.get(DrawOperations.size() - ind), 0, 0);
         ind_forward = DrawOperations.size() - ind + 1;
     }
@@ -380,7 +381,7 @@ public class PaintController {
         DragContext nodeDragContext = new DragContext();
 
         canvas.setOnMousePressed(event -> {
-            if( !event.isPrimaryButtonDown())
+            if(!event.isPrimaryButtonDown())
                 return;
 
             nodeDragContext.anchorX = event.getSceneX();
@@ -392,55 +393,55 @@ public class PaintController {
             nodeDragContext.translateY = node.getTranslateY();
         });
 
-        canvas.setOnMouseDragged(event -> {
-            if(!event.isPrimaryButtonDown())
+        canvas.setOnMouseDragged(e -> {
+            if(!e.isPrimaryButtonDown())
                 return;
 
             double scale = getScale();
 
-            Node node = (Node) event.getSource();
+            Node node = (Node) e.getSource();
 
-            node.setTranslateX(nodeDragContext.translateX + (( event.getSceneX() - nodeDragContext.anchorX) / scale));
-            node.setTranslateY(nodeDragContext.translateY + (( event.getSceneY() - nodeDragContext.anchorY) / scale));
+            node.setTranslateX(nodeDragContext.translateX + (( e.getSceneX() - nodeDragContext.anchorX) / scale));
+            node.setTranslateY(nodeDragContext.translateY + (( e.getSceneY() - nodeDragContext.anchorY) / scale));
 
-            event.consume();
+            e.consume();
         });
 
-        canvas.setOnScroll(event -> {
-            double delta = 1.2;
+        canvas.setOnScroll(e -> {
+            double d = 1.2;
 
             double scale = getScale();
             double oldScale = scale;
 
-            if (event.getDeltaY() < 0)
-                scale /= delta;
+            if (e.getDeltaY() < 0)
+                scale /= d;
             else
-                scale *= delta;
+                scale *= d;
 
             scale = clamp(scale, MIN_SCALE, MAX_SCALE);
 
             double f = (scale / oldScale) - 1;
 
-            double dx = (event.getSceneX() - getBoundsX());
-            double dy = (event.getSceneY() - getBoundsY());
+            double dx = (e.getSceneX() - getBoundsX());
+            double dy = (e.getSceneY() - getBoundsY());
 
             setScale(scale);
 
             setPivot(f*dx, f*dy);
 
-            event.consume();
+            e.consume();
         });
     }
 
-    public static double clamp( double value, double min, double max) {
+    public double clamp( double val, double min, double max) {
 
-        if(Double.compare(value, min) < 0)
+        if(Double.compare(val, min) < 0)
             return min;
 
-        if(Double.compare(value, max) > 0)
+        if(Double.compare(val, max) > 0)
             return max;
 
-        return value;
+        return val;
     }
 
     @FXML
@@ -514,8 +515,8 @@ public class PaintController {
             butExit.setOnAction(ev -> {
                 g.setStroke(colorPicker.getValue());
                 g.strokeText(text.getText(), x, y);
-                stage.close();
                 addOperation();
+                stage.close();
             });
             HBox box = new HBox(line, text, butExit);
             box.setSpacing(10);
@@ -615,7 +616,6 @@ public class PaintController {
 
                 onLine();
             });
-
         });
 
     }
@@ -759,58 +759,6 @@ public class PaintController {
         });
 
     }
-/*
-    @FXML
-    public void onDrawFig() {
-        GraphicsContext g = canvas.getGraphicsContext2D();
-        double[] x = {0};
-        double[] y = {0};
-
-       /* List<Double> x = new ArrayList<>();
-        List<Double> y = new ArrayList<>();
-        Stage stage = new Stage();
-
-        canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
-            int i = x.length - 1;
-            x[i] = e.getX();
-            y[i] = e.getY();
-            i++;
-
-            /*SVGPath path = new SVGPath();
-            path.setStroke(colorPicker.getValue());
-
-            if (x.length != 0 && y.length != 0) {
-                System.out.println("click " + e.getClickCount());
-                System.out.println("x " + x.length);
-                System.out.println("y " + y.length);
-                if (x[0] == x[x.length - 1] && (y[0] == y[y.length - 1])) {
-                /*for (int i = 0; i < x.size(); i++)
-                    path.setContent(x.get(i) + ',' + y.get(i) + ' ');
-                    g.setStroke(colorPicker.getValue());
-                    g.strokePolygon(x, y, e.getClickCount());
-                }
-            }
-        });
-       /* canvas.setOnMouseClicked(e -> {
-            int i = x.length - 1;
-            x[i] = e.getX();
-            y[i] = e.getY();
-            i++;
-
-            /*SVGPath path = new SVGPath();
-            path.setStroke(colorPicker.getValue());*/
-
-        /*if (x.length != 0 && y.length != 0) {
-            System.out.println(e.getClickCount());
-            if (e.getClickCount() > 2 && (x[0] == x[x.length - 1] && (y[0] == y[y.length - 1]))) {
-                /*for (int i = 0; i < x.size(); i++)
-                    path.setContent(x.get(i) + ',' + y.get(i) + ' ');
-                    g.setStroke(colorPicker.getValue());
-                    g.strokePolygon(x, y, e.getClickCount());
-                }
-            }
-        });
-    }*/
 
     @FXML
     public void createGrid() {

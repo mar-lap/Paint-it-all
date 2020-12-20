@@ -1,0 +1,1 @@
+javafxpackager -deploy -native -outdir packages -outfile PaintItAll -srcdir PaintItAll_jar -srcfiles Paint_FX.jar -appclass Paint.PaintApp -name "PaintItAll" -title "Paint it all! demo"

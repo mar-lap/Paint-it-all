@@ -14,7 +14,7 @@ public class PaintApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("view.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("View.fxml"));
         primaryStage.setTitle("Paint Application");
 
         Image icon = new Image("Paint/resources/icons/paintIcon.png");

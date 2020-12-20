@@ -55,7 +55,6 @@
                             <MenuItem fx:id="Ellipse" text="Oval" onAction="#onOval"/>
                             <MenuItem fx:id="Rectangle" text="Rectangle" onAction="#onRect"/>
                             <MenuItem fx:id="FillRect" text="Fill Rectangle" onAction="#onFillRect"/>
-                            <MenuItem fx:id="DrawFigure" text="Draw a figure"/>
                         </Menu>
                     </MenuBar >
                     <ColorPicker fx:id = "colorPicker"/>
